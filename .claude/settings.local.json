@@ -5,7 +5,10 @@
       "Bash(npm run build)",
       "Bash(powershell.exe:*)",
       "Bash(npx create-docusaurus@latest:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(npm install)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(git push origin 001-ros2-fundamentals-module)"
     ],
     "deny": [],
     "ask": []
