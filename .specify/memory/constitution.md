@@ -1,55 +1,72 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report -->
+<!--
+Version change: None → 0.1.0
+List of modified principles:
+- PROJECT_NAME → AI/Spec-Driven Textbook on Physical AI & Humanoid Robotics
+- PRINCIPLE_1_NAME → Technical accuracy based on established robotics, simulation, and AI concepts
+- PRINCIPLE_2_NAME → Educational clarity for beginner-to-intermediate students in AI, robotics, and simulation
+- PRINCIPLE_3_NAME → Structured pedagogical flow from foundational concepts to advanced humanoid robotics systems
+- PRINCIPLE_4_NAME → Consistency across all chapters in style, terminology, and formatting
+- PRINCIPLE_5_NAME → AI-native writing workflow aligned with Spec-Kit and Docusaurus documentation standards
+Added sections: Key Standards, Constraints, Success Criteria
+Removed sections: None
+Templates requiring updates:
+- .specify/templates/plan-template.md: ⚠ pending
+- .specify/templates/spec-template.md: ⚠ pending
+- .specify/templates/tasks-template.md: ⚠ pending
+- .specify/templates/commands/*.md: ⚠ pending
+Follow-up TODOs: None
+-->
+# AI/Spec-Driven Textbook on Physical AI & Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Technical accuracy based on established robotics, simulation, and AI concepts
+All content must be factually correct and aligned with current, widely accepted principles in robotics, simulation, and artificial intelligence.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Educational clarity for beginner-to-intermediate students in AI, robotics, and simulation
+Explanations, examples, and exercises must be clear, concise, and accessible to students with foundational knowledge, progressively building towards advanced topics without overwhelming them.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Structured pedagogical flow from foundational concepts to advanced humanoid robotics systems
+The textbook's structure must guide learners from basic principles of Physical AI and ROS 2 to complex areas like humanoid kinematics, VLA systems, and NVIDIA Isaac integration in a logical, step-by-step manner.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Consistency across all chapters in style, terminology, and formatting
+Maintain a unified writing style, use consistent terminology, and adhere to a predefined formatting standard throughout the entire textbook to ensure a cohesive learning experience.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### AI-native writing workflow aligned with Spec-Kit and Docusaurus documentation standards
+Leverage AI tools and methodologies for content creation and adhere strictly to Spec-Kit's development guidelines and Docusaurus's documentation conventions for structured, maintainable, and deployable content.
 
-### [PRINCIPLE_6_NAME]
+## Key Standards
 
+- All explanations must follow standard robotics and AI practices, including ROS 2, Gazebo, Unity, NVIDIA Isaac, and Vision-Language-Action systems.
+- Writing style: clear, instructional, and technically precise; avoid jargon unless defined.
+- Diagrams, examples, and conceptual explanations must be reproducible in standard simulation or robotics environments.
+- Each chapter must comply with Docusaurus formatting conventions (frontmatter, headings, code blocks, callouts).
+- No hallucinated frameworks, tools, or capabilities—only well-known robotics and AI systems.
+- All system descriptions (perception, control, kinematics, simulation, planning) must follow widely accepted robotics literature and engineering principles.
 
-[PRINCIPLE__DESCRIPTION]
+## Constraints
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- The textbook must cover the full learning path of Physical AI & Humanoid Robotics, including:
+  • Physical AI foundations and embodied intelligence
+  • ROS 2 fundamentals
+  • Simulation with Gazebo
+  • Visualization with Unity
+  • NVIDIA Isaac platform for perception and training
+  • Humanoid kinematics, dynamics, and locomotion
+  • Conversational and VLA-driven robotics
+- Minimum 13 chapters, following a weekly learning structure.
+- Every chapter must include learning objectives, explanations, examples, diagrams (text-based if needed), and exercises.
+- Output must be directly usable inside a Docusaurus project without modifications.
+- This constitution applies ONLY to writing the textbook content—no chatbot, authentication, personalization, or translation features at this stage.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Success Criteria
+- The completed textbook provides a clear, accurate, and comprehensive introduction to Physical AI & Humanoid Robotics.
+- All chapters are fully structured, coherent, and technically sound.
+- Formatting is compatible with Docusaurus and Spec-Kit.
+- The final book stands alone as an educational resource suitable for students entering the world of humanoid and embodied AI systems.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 0.1.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-05
+Feature name: physical-ai-robotics-textbook
