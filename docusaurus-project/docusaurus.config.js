@@ -20,8 +20,8 @@ const config = {
   },
 
   // Set the production url of your site here
-  // Update this to your actual Vercel domain when deployed
-  url: '',
+  // This will be updated with the Vercel deployment URL after deployment
+  url: 'https://your-vercel-project-url.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For Vercel deployment, use '/'
   baseUrl: '/',
@@ -68,7 +68,9 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: 'Physical AI & Humanoid Robotics',
@@ -95,7 +97,7 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
+        style: 'light',
         links: [
           {
             title: 'Docs',
@@ -141,7 +143,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright ©  Huzaifa Naeem${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

@@ -35,23 +35,67 @@ const sidebars = {
           type: 'category',
           label: 'Module 1: ROS 2 (Weeks 3-5)',
           items: [
-            'modules/module-1-ros2/module-1-ros2-index',
+            'module-1-ros2/module-1-ros2-introduction',
             {
               type: 'category',
-              label: 'Chapter 1: Foundations & Nodes',
+              label: 'Lesson 1: Nodes & Topics',
               items: [
-                'modules/module-1-ros2/chapter-1/module-1-ros2-chapter-1-overview',
-                'modules/module-1-ros2/chapter-1/module-1-ros2-chapter-1-topics',
-                'modules/module-1-ros2/chapter-1/module-1-ros2-chapter-1-labs',
+                'module-1-ros2/module-1-ros2-nodes-topics',
+                'module-1-ros2/labs/module-1-ros2-lab-nodes-topics',
               ],
             },
             {
               type: 'category',
-              label: 'Chapter 2: Services & Actions',
+              label: 'Lesson 2: Services & Actions',
               items: [
-                'modules/module-1-ros2/chapter-2/module-1-ros2-chapter-2-overview',
-                'modules/module-1-ros2/chapter-2/module-1-ros2-chapter-2-examples',
-                'modules/module-1-ros2/chapter-2/module-1-ros2-chapter-2-labs',
+                'module-1-ros2/module-1-ros2-services-actions',
+                'module-1-ros2/labs/module-1-ros2-lab-services-actions',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 3: rclpy Patterns',
+              items: [
+                'module-1-ros2/module-1-ros2-rclpy-patterns',
+                // No lab for this lesson yet
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 4: URDF Robot Description',
+              items: [
+                'module-1-ros2/module-1-ros2-urdf-robot-description',
+                // No lab for this lesson yet
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 5: Launch Files & Parameters',
+              items: [
+                'module-1-ros2/module-1-ros2-launch-files-params',
+                'module-1-ros2/labs/module-1-ros2-lab-launch-params',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 6: Agent to ROS Bridge',
+              items: [
+                'module-1-ros2/module-1-ros2-agent-ros-bridge',
+                'module-1-ros2/labs/module-1-ros2-lab-agent-bridge',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Capstone Project',
+              items: [
+                'module-1-ros2/module-1-ros2-capstone',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Hardware Notes',
+              items: [
+                'module-1-ros2/jetson-notes',
               ],
             },
           ],

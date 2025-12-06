@@ -4,36 +4,37 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Hands-On Learning for Physical AI',
+    Svg: require('@site/static/img/undraw_robotics.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Explore the foundations of Physical AI with practical, intuitive lessons. 
+        Learn how intelligent embodied systems perceive, move, and interact with the world.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Build & Explore Digital Twins',
+    Svg: require('@site/static/img/simulation.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Create rich digital twins to visualize real-world environments, test behaviors, 
+        and understand how humanoid systems respond under different conditions.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Intelligence for Humanoid Systems',
+    Svg: require('@site/static/img/undraw_artificial_intelligence.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Dive into the core principles that enable humanoid robots to understand their 
+        surroundings, make decisions, and perform complex actions in real-time.
       </>
     ),
   },
 ];
+
 
 function Feature({Svg, title, description}) {
   return (
