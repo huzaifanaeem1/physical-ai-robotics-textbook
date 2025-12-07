@@ -1,0 +1,44 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import os
+
+app = FastAPI(
+    title="RAG Chatbot API",
+    description="API for RAG-based chatbot using Google Gemini",
+    version="1.0.0"
+)
+
+# Add CORS middleware - allow all origins for Hugging Face Spaces
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    # Allow credentials to be passed
+    allow_credentials=True,
+    # Expose headers that frontend can access
+    expose_headers=["Access-Control-Allow-Origin"]
+)
+
+# Import and include routes
+from rag_backend.routes import ask, ask_selected, history
+
+app.include_router(ask.router, prefix="/api", tags=["ask"])
+app.include_router(ask_selected.router, prefix="/api", tags=["ask_selected"])
+app.include_router(history.router, prefix="/api", tags=["history"])
+
+@app.get("/")
+async def root():
+    return {"message": "RAG Chatbot API is running!"}
+
+@app.get("/health")
+async def health_check():
+    # Verify all required environment variables are set
+    required_vars = ["GEMINI_API_KEY", "QDRANT_URL", "DATABASE_URL"]
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+
+    if missing_vars:
+        return {"status": "error", "missing_env_vars": missing_vars}
+
+    return {"status": "healthy"}

@@ -112,3 +112,15 @@
 /* Add custom font imports if needed */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Custom styles for RAG Chatbot Widget */
+/* Ensure proper z-index for the chat widget */
+#rag-chat-button {
+  z-index: 2147483000 !important;
+}
+
+#rag-chat-panel {
+  z-index: 2147483000 !important;
+}
+
+/* Additional custom styles can be added here */

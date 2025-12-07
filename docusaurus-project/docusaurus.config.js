@@ -62,6 +62,9 @@ const config = {
     ],
   ],
 
+  // Add static directories to serve the chat widget files
+  staticDirectories: ['static', 'public'],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

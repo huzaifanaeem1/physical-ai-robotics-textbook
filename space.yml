@@ -1,0 +1,20 @@
+type: docker
+sdk: docker
+app_port: 8000
+secrets:
+  - key: GEMINI_API_KEY
+    name: Gemini API Key
+    description: Your Google Gemini API key for embeddings and text generation
+  - key: QDRANT_URL
+    name: Qdrant URL
+    description: Your Qdrant Cloud URL
+  - key: QDRANT_API_KEY
+    name: Qdrant API Key
+    description: Your Qdrant API key
+  - key: DATABASE_URL
+    name: Database URL
+    description: Your Postgres database connection string
+hardware:
+  cpu: True
+  memory: 16gb
+  accelerator: none
