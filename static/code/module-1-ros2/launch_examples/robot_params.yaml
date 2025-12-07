@@ -1,0 +1,17 @@
+parameter_node:
+  ros__parameters:
+    robot_name: "turtlebot4"
+    max_velocity: 1.5
+    operating_mode: "autonomous"
+
+motion_controller:
+  ros__parameters:
+    kp: 1.5
+    ki: 0.15
+    kd: 0.015
+    max_speed: 2.0
+
+target_generator:
+  ros__parameters:
+    amplitude: 0.8
+    frequency: 0.15
