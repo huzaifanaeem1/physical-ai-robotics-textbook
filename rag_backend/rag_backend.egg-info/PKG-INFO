@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: rag_backend
+Version: 0.1.0
+Requires-Dist: fastapi
+Requires-Dist: uvicorn[standard]
+Requires-Dist: python-dotenv
+Requires-Dist: google-generativeai
+Requires-Dist: qdrant-client
+Requires-Dist: sqlalchemy
+Requires-Dist: asyncpg
+Requires-Dist: pydantic
+Dynamic: requires-dist

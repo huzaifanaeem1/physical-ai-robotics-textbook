@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 async def init_db():
-    from rag_backend.db.models import init_db
+    from db.models import init_db
     print("Initializing database tables...")
     await init_db()
     print("Database tables created successfully!")

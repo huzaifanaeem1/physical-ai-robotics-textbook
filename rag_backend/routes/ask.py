@@ -21,8 +21,8 @@ async def ask_endpoint(request: AskRequest):
         session_id = request.session_id or str(uuid.uuid4())
 
         # Import here to avoid circular dependencies
-        from rag_backend.services.generator import generate_answer
-        from rag_backend.services.session_logger import log_message
+        from ..services.generator import generate_answer
+        from ..services.session_logger import log_message
 
         # Generate answer using RAG pipeline
         answer, citations = await generate_answer(
@@ -40,5 +40,13 @@ async def ask_endpoint(request: AskRequest):
             citations=citations,
             session_id=session_id
         )
+    except ImportError as e:
+        # This is likely the real error - capture and return it properly
+        import traceback
+        error_details = f"ImportError: {str(e)}\nTraceback: {traceback.format_exc()}"
+        raise HTTPException(status_code=500, detail=error_details)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # For other exceptions, also provide more detailed information
+        import traceback
+        error_details = f"Exception: {str(e)}\nType: {type(e).__name__}\nTraceback: {traceback.format_exc()}"
+        raise HTTPException(status_code=500, detail=error_details)

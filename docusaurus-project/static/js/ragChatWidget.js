@@ -4,7 +4,8 @@ class RAGChatWidget {
     this.isOpen = false;
     this.sessionId = localStorage.getItem('rag_chat_session_id') || this.generateSessionId();
     localStorage.setItem('rag_chat_session_id', this.sessionId);
-    this.backendUrl = 'https://huzaifanaeem1-robotics-rag-backend.hf.space/api'; // Your Hugging Face backend URL
+    // Get backend URL from configuration (set in ragChatConfig.js)
+    this.backendUrl = window.RAG_CHAT_CONFIG?.backendUrl || 'http://localhost:8000/api';
     this.init();
   }
 
@@ -37,9 +38,8 @@ class RAGChatWidget {
       font-size: 24px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 2147483000; /* Highest possible z-index */
+      z-index: 1000;
       transition: all 0.3s ease;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
 
     // Create the chat panel
@@ -56,7 +56,7 @@ class RAGChatWidget {
       box-shadow: 0 8px 30px rgba(0,0,0,0.12);
       display: none;
       flex-direction: column;
-      z-index: 2147483000; /* Highest possible z-index */
+      z-index: 1000;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
@@ -490,20 +490,22 @@ class RAGChatWidget {
   }
 }
 
+// Add CSS for active state of mode buttons
+(function() {
+  if (!document.getElementById('rag-widget-styles')) {
+    const style = document.createElement('style');
+    style.id = 'rag-widget-styles';
+    style.textContent = `
+      .rag-mode-btn.active {
+        background: #1b6cf5;
+        color: white;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+})();
+
 // Initialize the widget when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   new RAGChatWidget();
-});
-
-// Add CSS for active state of mode buttons
-if (!document.getElementById('rag-widget-styles')) {
-  const style = document.createElement('style');
-  style.id = 'rag-widget-styles';
-  style.textContent = `
-    .rag-mode-btn.active {
-      background: #1b6cf5;
-      color: white;
-    }
-  `;
-  document.head.appendChild(style);
 });

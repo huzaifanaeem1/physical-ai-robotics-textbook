@@ -17,7 +17,7 @@ class HistoryResponse(BaseModel):
 @router.get("/history/{session_id}", response_model=HistoryResponse)
 async def get_history(session_id: str):
     try:
-        from rag_backend.db.models import get_conversation_history
+        from ..db.models import get_conversation_history
         messages = await get_conversation_history(session_id)
         return HistoryResponse(messages=messages)
     except Exception as e:

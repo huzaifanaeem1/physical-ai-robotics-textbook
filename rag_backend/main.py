@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = FastAPI(
     title="RAG Chatbot API",
@@ -15,14 +19,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    # Allow credentials to be passed
-    allow_credentials=True,
     # Expose headers that frontend can access
     expose_headers=["Access-Control-Allow-Origin"]
 )
 
 # Import and include routes
-from rag_backend.routes import ask, ask_selected, history
+from routes import ask, ask_selected, history
 
 app.include_router(ask.router, prefix="/api", tags=["ask"])
 app.include_router(ask_selected.router, prefix="/api", tags=["ask_selected"])

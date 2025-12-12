@@ -7,7 +7,7 @@ async def retrieve_chunks(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
     """
     Retrieve relevant text chunks from Qdrant based on the query.
     """
-    from rag_backend.services.embeddings import generate_embedding
+    from .embeddings import generate_embedding
 
     try:
         # Initialize Qdrant client with environment variables

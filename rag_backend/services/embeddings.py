@@ -10,8 +10,11 @@ async def generate_embedding(text: str) -> List[float]:
     Generate embedding for the given text using Google Gemini embedding model.
     """
     try:
-        model = genai.embedding_model('models/embedding-001')
-        result = model.embed_content(text)
+        result = genai.embed_content(
+            model="models/embedding-001",
+            content=text,
+            task_type="RETRIEVAL_QUERY"
+        )
         return result['embedding']
     except Exception as e:
         print(f"Error generating embedding: {e}")

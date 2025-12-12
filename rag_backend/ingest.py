@@ -11,9 +11,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 import qdrant_client
 from qdrant_client.http import models
-from rag_backend.services.embeddings import generate_embeddings
-from rag_backend.utils.chunking import chunk_text, extract_metadata_from_path
-from rag_backend.utils.markdown_cleaning import clean_markdown_content
+from services.embeddings import generate_embeddings
+from utils.chunking import chunk_text, extract_metadata_from_path
+from utils.markdown_cleaning import clean_markdown_content
 import uuid
 
 # Load environment variables
@@ -63,7 +63,7 @@ async def process_markdown_file(file_path: str):
         path_metadata = extract_metadata_from_path(file_path)
 
         # Extract title from content
-        from rag_backend.utils.markdown_cleaning import extract_title_from_markdown
+        from utils.markdown_cleaning import extract_title_from_markdown
         title = extract_title_from_markdown(content)
         if not path_metadata["section"]:
             path_metadata["section"] = title or Path(file_path).stem
