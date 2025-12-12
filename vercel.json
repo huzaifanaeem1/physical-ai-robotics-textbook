@@ -9,5 +9,14 @@
       }
     }
   ],
-  "public": true
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/docusaurus-project/build/$1"
+    }
+  ],
+  "public": true,
+  "github": {
+    "silent": true
+  }
 }

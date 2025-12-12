@@ -1,0 +1,74 @@
+/* RAG Chatbot Widget Styles */
+
+/* Ensure the widget doesn't interfere with page content */
+#rag-chat-button {
+  transition: all 0.3s ease;
+}
+
+#rag-chat-button:hover {
+  transform: scale(1.1);
+}
+
+#rag-chat-panel {
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Style for message bubbles */
+.rag-message-user {
+  background: #1b6cf5 !important;
+}
+
+.rag-message-ai {
+  background: white !important;
+  border: 1px solid #eee !important;
+}
+
+/* Style for mode buttons */
+.rag-mode-btn {
+  transition: all 0.2s ease;
+}
+
+.rag-mode-btn:hover {
+  background: #e6f0ff;
+}
+
+.rag-mode-btn.active {
+  background: #1b6cf5 !important;
+  color: white !important;
+}
+
+/* Input area styling */
+#rag-user-input {
+  transition: border-color 0.2s ease;
+}
+
+#rag-user-input:focus {
+  outline: none;
+  border-color: #1b6cf5;
+  box-shadow: 0 0 0 2px rgba(27, 108, 245, 0.2);
+}
+
+/* Scrollbar styling */
+#rag-chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+#rag-chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+#rag-chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+#rag-chat-messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+#rag-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}

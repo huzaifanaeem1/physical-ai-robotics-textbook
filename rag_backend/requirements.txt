@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+google-generativeai
+qdrant-client
+sqlalchemy
+asyncpg
+pydantic

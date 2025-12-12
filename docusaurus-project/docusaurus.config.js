@@ -62,6 +62,31 @@ const config = {
     ],
   ],
 
+  // Add static directories to serve the chat widget files
+  staticDirectories: ['static', 'public'],
+
+  // Add the RAG chat widget script to all pages
+  scripts: [
+    // First set up environment-specific configuration
+    {
+      src: `/js/ragChatConfig.js`,
+      async: false, // Load before the main widget
+    },
+    {
+      src: '/js/ragChatWidget.js',
+      async: true,
+      defer: true
+    }
+  ],
+  stylesheets: [
+    {
+      href: '/css/ragChatWidget.css',
+      type: 'text/css',
+      rel: 'stylesheet'
+    }
+  ],
+
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

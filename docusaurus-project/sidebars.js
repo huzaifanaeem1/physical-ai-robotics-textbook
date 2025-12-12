@@ -100,25 +100,116 @@ const sidebars = {
             },
           ],
         },
-        {
-          type: 'category',
-          label: 'Module 2: Digital Twin (Weeks 6-7)',
-          items: [
-            'modules/module-2-digital-twin/module-2-digital-twin-index',
-          ],
-        },
+    {
+  type: 'category',
+  label: 'Module 2: Digital Twin (Weeks 6–7)',
+  collapsible: true,
+  collapsed: true,
+  items: [
+    'module-2-digital-twin/intro',
+    'module-2-digital-twin/lesson-1-digital-twin',
+    'module-2-digital-twin/lesson-2-physics',
+    'module-2-digital-twin/lesson-3-environments',
+    'module-2-digital-twin/lesson-4-sensors',
+    'module-2-digital-twin/lesson-5-unity-visualization',
+    'module-2-digital-twin/lesson-6-ai-loop',
+    'module-2-digital-twin/capstone-mini-project',
+  ],
+},
+
         {
           type: 'category',
           label: 'Module 3: NVIDIA Isaac (Weeks 8-10)',
           items: [
-            'modules/module-3-isaac/module-3-isaac-index',
+            'module-3-isaac/intro',
+            'module-3-isaac/lesson-1-ai-brain',
+            'module-3-isaac/lesson-2-isaac-sim',
+            'module-3-isaac/lesson-3-isaac-ros',
+            'module-3-isaac/lesson-4-nav2',
+            'module-3-isaac/lesson-5-control-loop',
+            'module-3-isaac/lesson-6-integration',
+            'module-3-isaac/lesson-7-capstone',
+            {
+              type: 'category',
+              label: 'Labs',
+              items: [
+                'module-3-isaac/labs/module-3-isaac-lab-1-synthetic-data',
+                'module-3-isaac/labs/module-3-isaac-lab-2-perception',
+                'module-3-isaac/labs/module-3-isaac-lab-3-navigation',
+              ],
+            },
           ],
         },
         {
           type: 'category',
           label: 'Module 4: VLA & Humanoids (Weeks 11-13)',
           items: [
-            'modules/module-4-vla/module-4-vla-index',
+            'module-4-vla-humanoid-robotics/module-4-index',
+            {
+              type: 'category',
+              label: 'Lesson 1: VLA Introduction',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-1-introduction-vla',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 2: Voice-to-Text Processing',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-2-voice-text',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 3: Cognitive Planning',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-3-cognitive-llm-planning',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 4: Vision & Object Grounding',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-4-vision-object-grounding',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 5: ROS 2 Action Execution',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-5-ros2-action-execution',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 6: Integrated VLA Pipeline',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-6-integrated-vla-pipeline',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Lesson 7: Capstone Guide',
+              items: [
+                'module-4-vla-humanoid-robotics/lesson-7-capstone-guide',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Labs',
+              items: [
+                'module-4-vla-humanoid-robotics/module-4-vla-humanoid-robotics-lab-1-voice-command',
+                'module-4-vla-humanoid-robotics/module-4-vla-humanoid-robotics-lab-2-language-plan',
+                'module-4-vla-humanoid-robotics/module-4-vla-humanoid-robotics-lab-3-vision-planning',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Capstone Project',
+              items: [
+                'module-4-vla-humanoid-robotics/autonomous-humanoid-project',
+              ],
+            },
           ],
         },
       ],
