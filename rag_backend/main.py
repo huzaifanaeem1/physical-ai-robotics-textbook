@@ -8,7 +8,7 @@ load_dotenv()
 
 app = FastAPI(
     title="RAG Chatbot API",
-    description="API for RAG-based chatbot using Google Gemini",
+    description="API for RAG-based chatbot using Cohere",
     version="1.0.0"
 )
 
@@ -37,7 +37,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     # Verify all required environment variables are set
-    required_vars = ["GEMINI_API_KEY", "QDRANT_URL", "DATABASE_URL"]
+    required_vars = ["COHERE_API_KEY", "QDRANT_URL", "DATABASE_URL"]
     missing_vars = [var for var in required_vars if not os.getenv(var)]
 
     if missing_vars:

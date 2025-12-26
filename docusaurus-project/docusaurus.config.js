@@ -21,7 +21,7 @@ const config = {
 
   // Set the production url of your site here
   // This will be updated with the Vercel deployment URL after deployment
-  url: 'https://your-vercel-project-url.vercel.app',
+  url: 'https://physical-ai-robotics-textbook.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For Vercel deployment, use '/'
   baseUrl: '/',
@@ -83,7 +83,7 @@ const config = {
       href: '/css/ragChatWidget.css',
       type: 'text/css',
       rel: 'stylesheet'
-    }
+    },
   ],
 
 
@@ -114,7 +114,7 @@ const config = {
             position: 'left',
             label: 'Setup Guides',
           },
-          {
+                    {
             href: 'https://github.com/huzaifanaeem1/physical-ai-robotics-textbook',
             label: 'GitHub',
             position: 'right',

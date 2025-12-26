@@ -6,6 +6,7 @@ class RAGChatWidget {
     localStorage.setItem('rag_chat_session_id', this.sessionId);
     // Get backend URL from configuration (set in ragChatConfig.js)
     this.backendUrl = window.RAG_CHAT_CONFIG?.backendUrl || 'http://localhost:8000/api';
+    this.currentSelectedText = ''; // Store the currently selected text
     this.init();
   }
 
@@ -70,7 +71,9 @@ class RAGChatWidget {
         justify-content: space-between;
         align-items: center;
       ">
-        <h3 style="margin: 0; font-size: 16px;">Textbook Assistant</h3>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <h3 style="margin: 0; font-size: 16px;">Textbook Assistant</h3>
+        </div>
         <button id="rag-close-btn" style="
           background: none;
           border: none;
@@ -96,23 +99,44 @@ class RAGChatWidget {
         <div style="display: flex; margin-bottom: 8px;">
           <button id="rag-mode-global" class="rag-mode-btn active" style="
             flex: 1;
-            padding: 6px;
-            border: 1px solid #ddd;
-            background: #f0f0f0;
-            border-right: none;
-            border-radius: 4px 0 0 4px;
+            padding: 8px 6px;
+            border: 2px solid #e1e5e9;
+            background: #f8f9fa;
+            border-right: 1px solid #e1e5e9;
+            border-radius: 6px 0 0 6px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #495057;
+            transition: all 0.2s ease;
           ">Global Q&A</button>
           <button id="rag-mode-selected" class="rag-mode-btn" style="
             flex: 1;
-            padding: 6px;
-            border: 1px solid #ddd;
+            padding: 8px 6px;
+            border: 2px solid #e1e5e9;
             background: white;
-            border-radius: 0 4px 4px 0;
+            border-radius: 0 6px 6px 0;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #495057;
+            transition: all 0.2s ease;
           ">Ask Selected</button>
+        </div>
+
+        <div id="rag-selection-instruction" style="
+          margin-bottom: 8px;
+          padding: 8px;
+          background: #e7f3ff;
+          border-radius: 6px;
+          font-size: 12px;
+          color: #0066cc;
+          display: block;
+          text-align: center;
+          border-left: 3px solid #0066cc;
+          font-weight: 500;
+        ">
+          📝 Select text on the page first, then ask your question
         </div>
 
         <div style="display: flex;">
@@ -121,35 +145,81 @@ class RAGChatWidget {
             placeholder="Ask a question about the textbook..."
             style="
               flex: 1;
-              padding: 10px;
-              border: 1px solid #ddd;
-              border-radius: 4px 0 0 4px;
+              padding: 12px;
+              border: 2px solid #e1e5e9;
+              border-right: 1px solid #e1e5e9;
+              border-radius: 8px 0 0 8px;
               resize: none;
               height: 60px;
               font-size: 14px;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              transition: border-color 0.2s ease;
             "></textarea>
           <button
             id="rag-send-btn"
             style="
-              padding: 0 16px;
-              border: 1px solid #ddd;
-              border-left: none;
-              border-radius: 0 4px 4px 0;
+              padding: 12px 16px;
+              border: 2px solid #1b6cf5;
+              border-left: 1px solid #1b6cf5;
+              border-radius: 0 8px 8px 0;
               background: #1b6cf5;
               color: white;
               cursor: pointer;
+              font-weight: 500;
+              transition: all 0.2s ease;
             ">Send</button>
+        </div>
+
+        <div id="rag-selection-indicator" style="
+          margin-top: 8px;
+          padding: 8px;
+          background: #e6f7ff;
+          border-radius: 6px;
+          font-size: 12px;
+          color: #0066cc;
+          display: none;
+          text-align: center;
+          font-weight: 500;
+          border: 1px solid #91d5ff;
+        ">
+          🎯 Answering from selected text
         </div>
 
         <div id="rag-selected-text-preview" style="
           margin-top: 8px;
-          padding: 8px;
-          background: #e8f4ff;
-          border-radius: 4px;
-          font-size: 12px;
+          padding: 10px;
+          background: #f0f8ff;
+          border-radius: 8px;
+          font-size: 13px;
           display: none;
+          border: 1px solid #c2e0ff;
         ">
-          <strong>Selected text:</strong> <span id="rag-selected-text-content"></span>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <strong style="color: #0066cc; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Selected Text:</strong>
+            <button id="rag-clear-selection" style="
+              background: #e6f0ff;
+              border: 1px solid #b3d1ff;
+              color: #0066cc;
+              cursor: pointer;
+              font-size: 14px;
+              width: 24px;
+              height: 24px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0;
+              margin-left: 8px;
+              transition: all 0.2s ease;
+            " title="Clear selection">×</button>
+          </div>
+          <div id="rag-selected-text-content" style="
+            line-height: 1.4;
+            color: #333;
+            max-height: 80px;
+            overflow-y: auto;
+            padding-right: 4px;
+          "></div>
         </div>
       </div>
     `;
@@ -185,6 +255,8 @@ class RAGChatWidget {
     // Mode switching
     document.getElementById('rag-mode-global').addEventListener('click', () => {
       this.switchMode('global');
+      // When switching to global mode, clear the stored selected text
+      this.currentSelectedText = '';
     });
     document.getElementById('rag-mode-selected').addEventListener('click', () => {
       this.switchMode('selected');
@@ -193,6 +265,11 @@ class RAGChatWidget {
     // Text selection detection
     document.addEventListener('mouseup', () => {
       this.handleTextSelection();
+    });
+
+    // Clear selection button
+    document.getElementById('rag-clear-selection').addEventListener('click', () => {
+      this.clearSelection();
     });
   }
 
@@ -214,18 +291,59 @@ class RAGChatWidget {
     this.isOpen = false;
   }
 
+  clearSelection() {
+    // Clear the stored selected text
+    this.currentSelectedText = '';
+
+    // Clear the preview content
+    document.getElementById('rag-selected-text-content').textContent = '';
+
+    // Hide the preview and indicator
+    document.getElementById('rag-selected-text-preview').style.display = 'none';
+    document.getElementById('rag-selection-indicator').style.display = 'none';
+
+    // Switch to global mode
+    this.switchMode('global');
+  }
+
   switchMode(mode) {
     // Update button states
     const globalBtn = document.getElementById('rag-mode-global');
     const selectedBtn = document.getElementById('rag-mode-selected');
+    const indicator = document.getElementById('rag-selection-indicator');
+    const instruction = document.getElementById('rag-selection-instruction');
 
     if (mode === 'global') {
       globalBtn.classList.add('active');
       selectedBtn.classList.remove('active');
+      // Hide the preview, indicator, and show instruction for global mode
       document.getElementById('rag-selected-text-preview').style.display = 'none';
+      indicator.style.display = 'none';
+      instruction.style.display = 'block';
     } else {
       globalBtn.classList.remove('active');
       selectedBtn.classList.add('active');
+      // Show the preview and indicator if we have selected text
+      if (this.currentSelectedText) {
+        document.getElementById('rag-selected-text-preview').style.display = 'block';
+        indicator.style.display = 'block';
+        instruction.style.display = 'none';
+      } else {
+        // If we're switching to selected mode but don't have stored text,
+        // check if there's currently selected text on the page
+        const currentlySelectedText = window.getSelection().toString().trim();
+        if (currentlySelectedText) {
+          this.currentSelectedText = currentlySelectedText;
+          document.getElementById('rag-selected-text-content').textContent =
+            currentlySelectedText.length > 100 ? currentlySelectedText.substring(0, 100) + '...' : currentlySelectedText;
+          document.getElementById('rag-selected-text-preview').style.display = 'block';
+          indicator.style.display = 'block';
+          instruction.style.display = 'none';
+        } else {
+          // Show instruction to select text when in selected mode but no text is selected
+          instruction.style.display = 'block';
+        }
+      }
     }
   }
 
@@ -236,8 +354,13 @@ class RAGChatWidget {
   handleTextSelection() {
     const selectedText = window.getSelection().toString().trim();
     const previewDiv = document.getElementById('rag-selected-text-preview');
+    const indicator = document.getElementById('rag-selection-indicator');
+    const instruction = document.getElementById('rag-selection-instruction');
 
     if (selectedText && selectedText.length > 0) {
+      // Store the selected text to use when sending the message
+      this.currentSelectedText = selectedText;
+
       // Show the selected text preview
       document.getElementById('rag-selected-text-content').textContent =
         selectedText.length > 100 ? selectedText.substring(0, 100) + '...' : selectedText;
@@ -246,9 +369,24 @@ class RAGChatWidget {
       // Switch to selected mode if not already
       if (!document.getElementById('rag-mode-selected').classList.contains('active')) {
         this.switchMode('selected');
+      } else {
+        // If already in selected mode, just show the indicator and hide instruction
+        indicator.style.display = 'block';
+        instruction.style.display = 'none';
       }
     } else {
-      previewDiv.style.display = 'none';
+      // Clear the stored selected text when no text is selected
+      this.currentSelectedText = '';
+
+      // Only hide the preview and indicator if we're in global mode, to allow users to keep selected mode active
+      if (this.getCurrentMode() === 'global') {
+        previewDiv.style.display = 'none';
+        indicator.style.display = 'none';
+        instruction.style.display = 'block'; // Show instruction in global mode
+      } else {
+        // In selected mode with no text selected, show instruction
+        instruction.style.display = 'block';
+      }
     }
   }
 
@@ -261,13 +399,13 @@ class RAGChatWidget {
     // Get selected text if in selected mode
     let selectedText = '';
     if (this.getCurrentMode() === 'selected') {
-      const previewDiv = document.getElementById('rag-selected-text-preview');
-      if (previewDiv.style.display !== 'none') {
-        selectedText = window.getSelection().toString().trim();
-        if (!selectedText) {
-          // If no selection, use the preview text
-          selectedText = document.getElementById('rag-selected-text-content').textContent.replace('...', '');
-        }
+      // Use the stored selected text instead of trying to get it from current selection
+      selectedText = this.currentSelectedText;
+
+      // If no stored selected text, try to get it from the preview content
+      if (!selectedText) {
+        const previewContent = document.getElementById('rag-selected-text-content').textContent;
+        selectedText = previewContent.replace('...', '');
       }
     }
 
@@ -305,11 +443,13 @@ class RAGChatWidget {
   }
 
   async callGlobalAPI(question) {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
     const response = await fetch(`${this.backendUrl}/ask`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headers,
       body: JSON.stringify({
         question: question,
         session_id: this.sessionId
@@ -324,11 +464,13 @@ class RAGChatWidget {
   }
 
   async callSelectedAPI(question, selectedText) {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
     const response = await fetch(`${this.backendUrl}/ask-selected`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headers,
       body: JSON.stringify({
         question: question,
         selected_text: selectedText,
@@ -471,7 +613,13 @@ class RAGChatWidget {
 
   async loadHistory() {
     try {
-      const response = await fetch(`${this.backendUrl}/history/${this.sessionId}`);
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const response = await fetch(`${this.backendUrl}/history/${this.sessionId}`, {
+        headers: headers
+      });
       if (response.ok) {
         const data = await response.json();
         const messagesContainer = document.getElementById('rag-chat-messages');
@@ -490,7 +638,7 @@ class RAGChatWidget {
   }
 }
 
-// Add CSS for active state of mode buttons
+// Add CSS for active state of mode buttons and hover effects
 (function() {
   if (!document.getElementById('rag-widget-styles')) {
     const style = document.createElement('style');
@@ -499,6 +647,29 @@ class RAGChatWidget {
       .rag-mode-btn.active {
         background: #1b6cf5;
         color: white;
+        border-color: #1b6cf5;
+      }
+
+      .rag-mode-btn:hover:not(.active) {
+        background: #e9ecef;
+        border-color: #adb5bd;
+      }
+
+      #rag-send-btn:hover {
+        background: #0d5bb8;
+        border-color: #0d5bb8;
+      }
+
+      #rag-clear-selection:hover {
+        background: #0066cc !important;
+        border-color: #0066cc !important;
+        color: white !important;
+      }
+
+      #rag-user-input:focus {
+        outline: none;
+        border-color: #1b6cf5 !important;
+        box-shadow: 0 0 0 3px rgba(27, 108, 245, 0.1);
       }
     `;
     document.head.appendChild(style);

@@ -1,72 +1,104 @@
 <!-- Sync Impact Report -->
 <!--
-Version change: None → 0.1.0
+Version change: 0.1.0 → 1.0.0
 List of modified principles:
-- PROJECT_NAME → AI/Spec-Driven Textbook on Physical AI & Humanoid Robotics
-- PRINCIPLE_1_NAME → Technical accuracy based on established robotics, simulation, and AI concepts
-- PRINCIPLE_2_NAME → Educational clarity for beginner-to-intermediate students in AI, robotics, and simulation
-- PRINCIPLE_3_NAME → Structured pedagogical flow from foundational concepts to advanced humanoid robotics systems
-- PRINCIPLE_4_NAME → Consistency across all chapters in style, terminology, and formatting
-- PRINCIPLE_5_NAME → AI-native writing workflow aligned with Spec-Kit and Docusaurus documentation standards
-Added sections: Key Standards, Constraints, Success Criteria
-Removed sections: None
+- PROJECT_NAME → RAG Chatbot for Physical AI & Humanoid Robotics Textbook
+- PRINCIPLE_1_NAME → Grounded Answers Only
+- PRINCIPLE_2_NAME → Deterministic & Debuggable
+- PRINCIPLE_3_NAME → Provider Abstraction
+- PRINCIPLE_4_NAME → Low-Cost & Free-Tier Friendly
+- PRINCIPLE_5_NAME → Frontend Safety
+Added sections: Non-Negotiables, Model Provider Requirements, Error Handling Standards
+Removed sections: Old educational principles
 Templates requiring updates:
-- .specify/templates/plan-template.md: ⚠ pending
-- .specify/templates/spec-template.md: ⚠ pending
-- .specify/templates/tasks-template.md: ⚠ pending
-- .specify/templates/commands/*.md: ⚠ pending
+- .specify/templates/plan-template.md: ✅ updated
+- .specify/templates/spec-template.md: ✅ updated
+- .specify/templates/tasks-template.md: ✅ updated
+- .specify/templates/commands/*.md: ✅ updated
 Follow-up TODOs: None
 -->
-# AI/Spec-Driven Textbook on Physical AI & Humanoid Robotics Constitution
+# RAG Chatbot for Physical AI & Humanoid Robotics Textbook Constitution
 
 ## Core Principles
 
-### Technical accuracy based on established robotics, simulation, and AI concepts
-All content must be factually correct and aligned with current, widely accepted principles in robotics, simulation, and artificial intelligence.
+### Grounded Answers Only
+- Global mode: answers must be based on retrieved book chunks.
+- Selection mode: answers must use ONLY the provided selected text.
+- If context is insufficient, say so clearly. The system MUST NOT hallucinate information.
 
-### Educational clarity for beginner-to-intermediate students in AI, robotics, and simulation
-Explanations, examples, and exercises must be clear, concise, and accessible to students with foundational knowledge, progressively building towards advanced topics without overwhelming them.
+### Deterministic & Debuggable
+- Clear separation of ingestion, retrieval, generation.
+- Minimal magic; explicit functions and logs.
+- Fail gracefully with readable errors. All components must be traceable and testable.
 
-### Structured pedagogical flow from foundational concepts to advanced humanoid robotics systems
-The textbook's structure must guide learners from basic principles of Physical AI and ROS 2 to complex areas like humanoid kinematics, VLA systems, and NVIDIA Isaac integration in a logical, step-by-step manner.
+### Provider Abstraction
+- All Cohere calls must live behind a provider interface.
+- No OpenAI imports or references anywhere in the codebase.
+- Provider interfaces must be swappable with minimal code changes.
 
-### Consistency across all chapters in style, terminology, and formatting
-Maintain a unified writing style, use consistent terminology, and adhere to a predefined formatting standard throughout the entire textbook to ensure a cohesive learning experience.
+### Low-Cost & Free-Tier Friendly
+- Chunking + batching optimized for cost efficiency.
+- Qdrant Cloud Free Tier compatible.
+- Neon Serverless Postgres compatible.
+- Resource usage must be monitored and optimized.
 
-### AI-native writing workflow aligned with Spec-Kit and Docusaurus documentation standards
-Leverage AI tools and methodologies for content creation and adhere strictly to Spec-Kit's development guidelines and Docusaurus's documentation conventions for structured, maintainable, and deployable content.
+### Frontend Safety
+- Chat widget must work without user authentication.
+- No crashes if backend is temporarily unavailable.
+- Clear loading/error states for all user interactions.
+- Graceful degradation when services are down.
+
+## Non-Negotiables
+- No API keys or secrets hardcoded anywhere in the codebase.
+- All credentials must be loaded via environment variables only.
+- The system must run locally without authentication.
+- The chatbot must be robust, predictable, and error-free.
+- No authentication dependencies in the frontend or backend.
+
+## Model Provider Requirements
+- Cohere must be used for both embeddings and generation.
+- All Cohere-specific implementations must be abstracted behind provider interfaces.
+- No direct Cohere SDK calls outside of provider implementations.
+- Provider configuration must be environment-driven.
 
 ## Key Standards
 
-- All explanations must follow standard robotics and AI practices, including ROS 2, Gazebo, Unity, NVIDIA Isaac, and Vision-Language-Action systems.
-- Writing style: clear, instructional, and technically precise; avoid jargon unless defined.
-- Diagrams, examples, and conceptual explanations must be reproducible in standard simulation or robotics environments.
-- Each chapter must comply with Docusaurus formatting conventions (frontmatter, headings, code blocks, callouts).
-- No hallucinated frameworks, tools, or capabilities—only well-known robotics and AI systems.
-- All system descriptions (perception, control, kinematics, simulation, planning) must follow widely accepted robotics literature and engineering principles.
+- All RAG pipeline components (retrieval, generation, ingestion) must be clearly separated and testable.
+- Error handling must be comprehensive with appropriate fallbacks.
+- Logging must be structured and include traceability for debugging.
+- Frontend components must follow progressive enhancement principles.
+- API endpoints must have proper validation and rate limiting where appropriate.
+- No external dependencies that require authentication for basic functionality.
 
 ## Constraints
 
-- The textbook must cover the full learning path of Physical AI & Humanoid Robotics, including:
-  • Physical AI foundations and embodied intelligence
-  • ROS 2 fundamentals
-  • Simulation with Gazebo
-  • Visualization with Unity
-  • NVIDIA Isaac platform for perception and training
-  • Humanoid kinematics, dynamics, and locomotion
-  • Conversational and VLA-driven robotics
-- Minimum 13 chapters, following a weekly learning structure.
-- Every chapter must include learning objectives, explanations, examples, diagrams (text-based if needed), and exercises.
-- Output must be directly usable inside a Docusaurus project without modifications.
-- This constitution applies ONLY to writing the textbook content—no chatbot, authentication, personalization, or translation features at this stage.
+- The system must support two answer modes: global (from entire book) and selection-only (from highlighted text).
+- Backend must be configurable through environment variables only.
+- Frontend must gracefully handle backend unavailability.
+- No hardcoded credentials, API keys, or secrets in any source files.
+- All Cohere integrations must be abstracted and replaceable.
+- The chat widget must work in all textbook pages without conflicts.
 
 ## Governance
 
 ### Success Criteria
-- The completed textbook provides a clear, accurate, and comprehensive introduction to Physical AI & Humanoid Robotics.
-- All chapters are fully structured, coherent, and technically sound.
-- Formatting is compatible with Docusaurus and Spec-Kit.
-- The final book stands alone as an educational resource suitable for students entering the world of humanoid and embodied AI systems.
+- Local Docusaurus runs with no errors.
+- Backend runs locally with env-based config.
+- RAG answers work in both global and selection modes.
+- No authentication dependencies, no broken components, no runtime crashes.
+- System operates reliably in local development environment.
+- All components follow the specified architectural principles.
 
-**Version**: 0.1.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-05
-Feature name: physical-ai-robotics-textbook
+### Amendment Procedure
+- All principle changes require explicit justification and review.
+- Version bumps: MAJOR for principle removals, MINOR for additions, PATCH for clarifications.
+- Changes must be propagated to dependent templates and documentation.
+
+### Compliance Review
+- Regular audits of credential handling to ensure no hardcoding.
+- Verification that all Cohere calls go through provider abstraction.
+- Frontend safety checks for error state handling.
+- Performance monitoring for cost optimization.
+
+**Version**: 1.0.0 | **Ratified**: 2025-12-05 | **Last Amended**: 2025-12-19
+Feature name: rag-chatbot-system

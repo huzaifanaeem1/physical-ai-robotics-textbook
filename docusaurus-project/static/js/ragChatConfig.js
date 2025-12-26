@@ -13,6 +13,6 @@
   } else {
     // Production environment - update this with your actual production backend URL
     // This should be configured in your deployment settings
-    window.RAG_CHAT_CONFIG.backendUrl = 'https://your-production-backend-url.com/api';
+    window.RAG_CHAT_CONFIG.backendUrl = 'https://huzaifanaeem1-robotics-rag-backend.hf.space/api';
   }
 })();

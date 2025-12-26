@@ -1,6 +1,6 @@
 # RAG Chatbot Backend
 
-This is the backend service for the RAG (Retrieval-Augmented Generation) Chatbot system for the Physical AI & Humanoid Robotics textbook. It uses Google Gemini for embeddings and answer generation.
+This is the backend service for the RAG (Retrieval-Augmented Generation) Chatbot system for the Physical AI & Humanoid Robotics textbook. It uses Cohere for embeddings and answer generation.
 
 ## Features
 
@@ -9,14 +9,17 @@ This is the backend service for the RAG (Retrieval-Augmented Generation) Chatbot
 - Citation system returning source metadata and URLs
 - Session management with conversation history
 - Integration with Qdrant vector database and Neon Postgres
+- Authentication-free operation for immediate use
+- Grounded responses based solely on textbook content
 
 ## Tech Stack
 
 - FastAPI: Web framework
-- Google Gemini: Embeddings and text generation
+- Cohere: Embeddings and text generation
 - Qdrant: Vector database for document chunks
-- Neon Postgres: Session and message storage
+- Neon Postgres: Session and user data storage
 - SQLAlchemy: Database ORM
+- Alembic: Database migrations
 
 ## Setup
 
@@ -30,7 +33,7 @@ This is the backend service for the RAG (Retrieval-Augmented Generation) Chatbot
    cp .env.example .env
    ```
 4. Set up your environment variables:
-   - `GEMINI_API_KEY`: Your Google Gemini API key
+   - `COHERE_API_KEY`: Your Cohere API key
    - `QDRANT_URL`: Your Qdrant Cloud URL
    - `QDRANT_API_KEY`: Your Qdrant API key
    - `DATABASE_URL`: Your Neon Postgres connection string
@@ -45,6 +48,7 @@ The API will be available at `http://localhost:8000`.
 
 ## API Endpoints
 
+### RAG Endpoints
 - `POST /api/ask`: Global Q&A with retrieval from textbook
 - `POST /api/ask-selected`: Q&A based only on selected text
 - `GET /api/history/{session_id}`: Get conversation history
@@ -59,7 +63,7 @@ To ingest textbook content into the vector database:
    python ingest.py
    ```
 
-This will chunk the documents, generate embeddings using Gemini, and upload them to Qdrant.
+This will chunk the documents, generate embeddings using Cohere, and upload them to Qdrant.
 
 ## Deployment to Hugging Face
 
@@ -69,9 +73,21 @@ This backend is designed to run on Hugging Face Spaces/Inference API:
 2. Add your environment variables in the Space settings
 3. The application will automatically start using the `main.py` file
 
+## Database Migrations
+
+Run database migrations using Alembic:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run migrations
+alembic upgrade head
+```
+
 ## Environment Variables
 
-- `GEMINI_API_KEY`: Google Gemini API key (required)
+- `COHERE_API_KEY`: Cohere API key (required)
 - `QDRANT_URL`: Qdrant Cloud URL (required)
 - `QDRANT_API_KEY`: Qdrant API key (required)
 - `QDRANT_COLLECTION`: Name of the Qdrant collection (default: book_chunks)

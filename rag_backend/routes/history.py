@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 router = APIRouter()
 
@@ -17,7 +17,10 @@ class HistoryResponse(BaseModel):
 @router.get("/history/{session_id}", response_model=HistoryResponse)
 async def get_history(session_id: str):
     try:
-        from ..db.models import get_conversation_history
+        # Import here to avoid circular dependencies
+        from db.models import get_conversation_history
+
+        # Get conversation history
         messages = await get_conversation_history(session_id)
         return HistoryResponse(messages=messages)
     except Exception as e:

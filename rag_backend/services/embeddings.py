@@ -1,21 +1,15 @@
-import google.generativeai as genai
 import os
 from typing import List
-
-# Configure the Gemini API
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+from .cohere_provider import CohereProvider
 
 async def generate_embedding(text: str) -> List[float]:
     """
-    Generate embedding for the given text using Google Gemini embedding model.
+    Generate embedding for the given text using Cohere embedding model.
     """
     try:
-        result = genai.embed_content(
-            model="models/embedding-001",
-            content=text,
-            task_type="RETRIEVAL_QUERY"
-        )
-        return result['embedding']
+        cohere_provider = CohereProvider()
+        embedding = await cohere_provider.generate_embedding(text)
+        return embedding
     except Exception as e:
         print(f"Error generating embedding: {e}")
         raise
@@ -24,8 +18,10 @@ async def generate_embeddings(texts: List[str]) -> List[List[float]]:
     """
     Generate embeddings for multiple texts.
     """
-    embeddings = []
-    for text in texts:
-        embedding = await generate_embedding(text)
-        embeddings.append(embedding)
-    return embeddings
+    try:
+        cohere_provider = CohereProvider()
+        embeddings = await cohere_provider.generate_embeddings(texts)
+        return embeddings
+    except Exception as e:
+        print(f"Error generating embeddings: {e}")
+        raise

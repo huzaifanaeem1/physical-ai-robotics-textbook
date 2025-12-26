@@ -1,5 +1,12 @@
 README.md
 setup.py
+auth/__init__.py
+auth/crud.py
+auth/middleware.py
+auth/models.py
+auth/routes.py
+auth/schemas.py
+auth/security.py
 db/__init__.py
 db/connection.py
 db/models.py
@@ -20,3 +27,4 @@ services/session_logger.py
 utils/__init__.py
 utils/chunking.py
 utils/markdown_cleaning.py
+utils/personalization.py

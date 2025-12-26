@@ -21,8 +21,8 @@ async def ask_endpoint(request: AskRequest):
         session_id = request.session_id or str(uuid.uuid4())
 
         # Import here to avoid circular dependencies
-        from ..services.generator import generate_answer
-        from ..services.session_logger import log_message
+        from services.generator import generate_answer
+        from services.session_logger import log_message
 
         # Generate answer using RAG pipeline
         answer, citations = await generate_answer(

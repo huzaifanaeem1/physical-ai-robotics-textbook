@@ -1,6 +1,6 @@
-import google.generativeai as genai
 import os
 from typing import Tuple, List, Dict, Any
+from .cohere_provider import CohereProvider
 
 async def generate_answer(
     question: str,
@@ -9,14 +9,13 @@ async def generate_answer(
     selected_text: str = None
 ) -> Tuple[str, List[Dict[str, Any]]]:
     """
-    Generate an answer using Google Gemini based on the mode:
+    Generate an answer using Cohere based on the mode:
     - 'global': Uses retrieved context from Qdrant
     - 'selected': Uses only the provided selected_text
     """
     try:
-        # Configure the Gemini API with environment variable
-        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        # Initialize Cohere provider
+        cohere_provider = CohereProvider()
 
         if mode == "global":
             # Retrieve relevant chunks from Qdrant
@@ -84,9 +83,10 @@ async def generate_answer(
         else:
             raise ValueError(f"Invalid mode: {mode}")
 
-        # Generate response using Gemini
-        response = model.generate_content(prompt)
-        answer = response.text if response.text else "I couldn't generate a response based on the provided context."
+        # Generate response using Cohere
+        answer = await cohere_provider.generate_text(prompt)
+        if not answer:
+            answer = "I couldn't generate a response based on the provided context."
 
         return answer, citations
 

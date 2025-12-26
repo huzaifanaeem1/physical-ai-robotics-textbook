@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "docusaurus-project/package.json",
+      "src": "docusaurus-project/**",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "build"
@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/docusaurus-project/build/$1"
+      "dest": "/docusaurus-project/build/index.html"
     }
   ],
   "public": true,
